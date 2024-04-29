@@ -6,21 +6,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 const PORT = process.env.PORT || 4000;
 
-app.post('/calculate', async(req, res) => {
-    console.log(req.body)
-    const { principal, rate, time } = await req.body; 
-    console.log(principal);
-    if (!principal || !rate || !time || isNaN(principal) || isNaN(!rate) || isNaN(!time) || principal<0 || rate<0 || time<0){
+app.get('/calculate', (req, res) => {
+    
+    const { principal, rate, time } =  req.query; 
+    
+    if (!principal || !rate || !time ){
         return res.status(400).send({ error: 'All fields are required' });
     }
-    if (isNaN(!rate) || isNaN(!time) || principal<0 || rate<0 || time<0){
+    else if (isNaN(rate) || isNaN(time) || isNaN(principal) ){
         return res.status(400).send({ error: 'All fields must be Numbers' });
     }
-    if ( principal<0 || rate<0 || time<0){
-        return res.status(400).send({ error: 'All fields are greater than Zero' });
+    else if ( principal<1 || rate<1 || time<1){
+        console.log(time)
+        return res.status(400).send({ error: 'All fields must be greater than Zero' });
     }
-    const interest =  (principal * rate * time) / 100;
-    res.send({ interest });
+    else{const interest =  (principal * rate * time) / 100;
+    res.send({ interest });}
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,9 +1,3 @@
 ###
 
-POST http://localhost:4000/calculate
-Content-Type: application/json
-{
-    "princial:5000,
-    "rate":2,
-    "time":2
-}
+GET http://localhost:4000/calculate?principal=5000&rate=2&time=0

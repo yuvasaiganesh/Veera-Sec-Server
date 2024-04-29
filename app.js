@@ -1,10 +1,10 @@
-import express from "express";
+const express=require("express");
 const app = express();
-import cors from "cors"
+const cors =require("cors")
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 app.get('/calculate', (req, res) => {
     
